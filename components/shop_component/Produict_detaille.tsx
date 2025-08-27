@@ -38,13 +38,13 @@ const Produict_detaille = ({ produit }: Props) => {
         
         <div className="modal-box space-y-4">
           <div className="space-y-4">
-            <p className="font-bold text-2xl  pb-4">Non du produit : <span className="font-light text-lg text-info
+            <p className="font-bold text-2xl  pb-4">Non du produit : <span className="font-light text-lg text-primary
             ">
               {produit.name}</span>
             </p>
-            <img src={produit.image_url} alt="" className="w-full rounded-md" />
-            <p className="font-bold text-2xl">Description  du produit :<span className="font-light text-lg text-info"> {produit.description}</span></p>
-            <p  className="font-bold text-2xl">Prix du produit : <span className="font-light text-lg text-info">
+            <img src={produit.image_url} alt="" className="w-full rounded-md hover:animate-pulse" />
+            <p className="font-bold text-2xl">Description  du produit :<span className="font-light text-lg text-primary"> {produit.description}</span></p>
+            <p  className="font-bold text-2xl">Prix du produit : <span className="font-light text-lg text-primary">
                {produit.price} MAD</span></p>
               <CardButton produit={produit}/>
           </div>

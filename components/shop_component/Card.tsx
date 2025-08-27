@@ -97,7 +97,7 @@ const Cards = () => {
           />
           <div>
             <h1 className="text-lg font-semibold">{c.product_name}</h1>
-            <p className="text-primary font-bold">{c.product_price} €</p>
+            <p className="text-primary font-bold">{c.product_price} MAD</p>
             <p>
               Quantité: {allTotal[k] ? allTotal[k]["COUNT(*)"] : 1}
               {/* Par défaut 1 si la quantité n’est pas trouvée */}
