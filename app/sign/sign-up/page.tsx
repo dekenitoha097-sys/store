@@ -1,0 +1,98 @@
+"use client";
+
+import { authClient } from "@/lib/auth-client";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@radix-ui/react-label";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+
+const SignUpPage = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsloading] = useState(false);
+
+  const handleSignUp = async () => {
+    console.log("ca marche");
+    const { data, error } = await authClient.signUp.email(
+      {
+        email,
+        password,
+        name,
+        callbackURL: "/dashboard",
+      },
+      {
+        onRequest: (ctx) => {
+          setIsloading(true);
+        },
+        onSuccess: (ctx) => {
+          alert("Inscription reuissi");
+          setIsloading(false);
+        },
+        onError: (ctx) => {
+          alert("echouer" + ctx.error.message);
+          setIsloading(false);
+        },
+      }
+    );
+  };
+
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <Card className="w-96 m-4 border-none shadow-md">
+        <CardHeader className="border-b flex justify-between items-center">
+          <Label className="text-xl font-black">Inscription</Label>
+          <img src="/habit.jpg" alt="" className="w-10 h-10" />
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          <Input
+            placeholder="Votre nom complet"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Input
+            placeholder="Adresse e-mail"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            placeholder="Mot de passe"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            onClick={handleSignUp}
+            className="w-full cursor-pointer text-white"
+            disabled={isLoading}
+          >
+            {isLoading ? "Chargement..." : "Créer un compte"}
+          </Button>
+        </CardContent>
+
+        <CardFooter className="w-full flex justify-center">
+          <p className="text-sm text-gray-600 mt-4 text-center">
+            Vous avez déjà un compte ?{" "}
+            <a
+              href="/sign/sign-in"
+              className="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+            >
+              Connectez-vous ici
+            </a>
+          </p>
+        </CardFooter>
+      </Card>
+    </div>
+  );
+};
+
+export default SignUpPage;
