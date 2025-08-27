@@ -106,7 +106,7 @@ const Command = ({ produit, prix }: Props) => {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            action="https://formsubmit.co/Oyodefona2007@gmail.com"
+            action="https://formsubmit.co/fonaoyode75@gmail.com"
             method="POST"
             className="space-y-4"
           >
