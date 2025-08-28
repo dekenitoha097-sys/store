@@ -80,10 +80,6 @@ const Shop_produicts = () => {
                     {produit.name}
                   </h2>
 
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-3">
-                    {produit.description}
-                  </p>
-
                   <div className="mt-auto space-y-2">
                     <p className="text-lg font-bold text-primary mb-4">
                       {produit.price} MAD

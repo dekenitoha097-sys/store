@@ -121,6 +121,7 @@ const Cards = () => {
         <Trash2 />
         Vider le panier
       </Button>
+
     </div>
   );
 };
