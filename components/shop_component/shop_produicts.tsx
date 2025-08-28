@@ -72,7 +72,7 @@ const Shop_produicts = () => {
                 <img
                   src={produit.image_url}
                   alt={produit.name}
-                  className="w-full object-cover"
+                  className="w-full object-cover h-72"
                 />
 
                 <div className="p-4 flex flex-col justify-between h-full">
