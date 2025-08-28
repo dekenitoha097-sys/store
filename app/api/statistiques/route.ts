@@ -12,7 +12,7 @@ export async function GET(req:Request) {
 
         const nbr_users = data[0]?.nbr_users ?? null;
 
-        const [data_car] = await connexion.execute<RowData[]>("SELECT COUNT(*) as nbr_card FROM cart_items");
+        const [data_car] = await connexion.execute<RowData[]>("SELECT COUNT(*) as nbr_card FROM commandes");
 
         const nbr_commande = data_car[0].nbr_card
 
