@@ -42,7 +42,7 @@ const Produict_detaille = ({ produit }: Props) => {
             ">
               {produit.name}</span>
             </p>
-            <img src={produit.image_url} alt="" className="w-full rounded-md hover:animate-pulse" />
+            <img src={produit.image_url} alt="" className="w-full rounded-md hover:animate-pulse h-96" />
             <p className="font-bold text-2xl">Description  du produit :<span className="font-light text-lg text-primary"> {produit.description}</span></p>
             <p  className="font-bold text-2xl">Prix du produit : <span className="font-light text-lg text-primary">
                {produit.price} MAD</span></p>
