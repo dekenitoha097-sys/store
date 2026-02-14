@@ -33,7 +33,7 @@ const Footer = () => {
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               Votre destination de confiance pour des produits de qualité. 
-              Nous nous engageons à vous offrir la meilleure expérience d'achat en ligne.
+              Nous nous engageons à vous offrir la meilleure expérience d&apos;achat en ligne.
             </p>
             <div className="flex space-x-4">
               <a
@@ -161,7 +161,7 @@ const Footer = () => {
                 Politique de confidentialité
               </span>
               <span className="text-gray-500 text-sm hover:text-white cursor-pointer transition-colors">
-                Conditions d'utilisation
+                Conditions d&apos;utilisation
               </span>
             </div>
           </div>

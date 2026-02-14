@@ -5,7 +5,7 @@ export async function GET(req: NextRequest, context: { params: Promise<{ id: str
   try {
     const { id } = await context.params;
 
-    const [rows]: any = await connexion.execute(
+    const [rows] = await connexion.execute(
       "SELECT * FROM products WHERE id = ?",
       [id]
     );
@@ -15,7 +15,7 @@ export async function GET(req: NextRequest, context: { params: Promise<{ id: str
     } else {
       return NextResponse.json({ message: "Produit non trouvé" }, { status: 404 });
     }
-  } catch (error) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { message: "Erreur lors de la récupération", error: String(error) },
       { status: 500 }
@@ -30,7 +30,7 @@ export async function DELETE(req: NextRequest, context: { params: Promise<{ id: 
     await connexion.execute("DELETE FROM products WHERE id = ?", [id]);
 
     return NextResponse.json({ message: `Produit supprimé : ${id}` }, { status: 200 });
-  } catch (error) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { message: "Erreur lors de la suppression", error: String(error) },
       { status: 500 }
@@ -51,7 +51,7 @@ export async function PUT(req: Request, context: { params: Promise<{ id: string 
     );
 
     return NextResponse.json({ message: "Produit modifié avec succès" }, { status: 200 });
-  } catch (error) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { message: "Erreur lors de la mise à jour", error: String(error) },
       { status: 500 }

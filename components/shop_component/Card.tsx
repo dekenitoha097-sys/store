@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Trash2, ShoppingBag, Plus, Minus, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { ShoppingBag, Loader2, Trash2 } from "lucide-react";
 import Command from "./command";
 import { Button } from "../ui/button";
 import { useToast } from "@/components/ui/toast";
@@ -153,12 +154,12 @@ const Cards = () => {
             <p className="text-gray-400 mb-6">
               Ajoutez des produits pour commencer vos achats
             </p>
-            <a
+            <Link
               href="/"
               className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-105 transition-all"
             >
               Découvrir nos produits
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="space-y-4">

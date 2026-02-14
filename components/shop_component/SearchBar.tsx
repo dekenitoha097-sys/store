@@ -161,7 +161,7 @@ const SearchBar = () => {
           ) : (
             <div className="px-4 py-8 text-center">
               <p className="text-gray-500 text-sm">
-                Aucun produit trouvé pour "{query}"
+                Aucun produit trouvé pour &quot;{query}&quot;
               </p>
             </div>
           )}
