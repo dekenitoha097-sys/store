@@ -17,7 +17,7 @@
     "daisyui": "^5.0.50",
     "lucide-react": "^0.541.0",
     "mysql2": "^3.14.3",
-    "next": "15.5.0",
+    "next": "^16.1.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
