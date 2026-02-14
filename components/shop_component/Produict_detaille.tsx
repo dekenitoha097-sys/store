@@ -1,5 +1,5 @@
 import { ShoppingCart, Eye, X } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import CardButton from "./Card_action";
 
 type Produit = {
@@ -14,10 +14,27 @@ type Produit = {
 
 type Props = {
   produit: Produit;
+  autoOpen?: boolean;
+  onClose?: () => void;
 };
 
-const Produict_detaille = ({ produit }: Props) => {
+const Produict_detaille = ({ produit, autoOpen = false, onClose }: Props) => {
   const modalRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    if (autoOpen && modalRef.current) {
+      modalRef.current.showModal();
+    }
+  }, [autoOpen]);
+
+  const handleClose = () => {
+    if (modalRef.current) {
+      modalRef.current.close();
+    }
+    if (onClose) {
+      onClose();
+    }
+  };
 
   const openModal = () => {
     modalRef.current?.showModal();
@@ -40,11 +57,12 @@ const Produict_detaille = ({ produit }: Props) => {
           
           {/* Close button */}
           <div className="absolute top-4 right-4 z-10">
-            <form method="dialog">
-              <button className="p-2 bg-white/80 hover:bg-white rounded-full shadow-md transition-colors">
-                <X className="h-5 w-5 text-gray-600" />
-              </button>
-            </form>
+            <button 
+              onClick={handleClose}
+              className="p-2 bg-white/80 hover:bg-white rounded-full shadow-md transition-colors"
+            >
+              <X className="h-5 w-5 text-gray-600" />
+            </button>
           </div>
 
           {/* Content */}
@@ -99,9 +117,12 @@ const Produict_detaille = ({ produit }: Props) => {
         </div>
         
         {/* Backdrop */}
-        <form method="dialog" className="modal-backdrop bg-black/50">
-          <button>Fermer</button>
-        </form>
+        <div 
+          className="modal-backdrop bg-black/50"
+          onClick={handleClose}
+        >
+          <button onClick={handleClose}>Fermer</button>
+        </div>
       </dialog>
     </>
   );

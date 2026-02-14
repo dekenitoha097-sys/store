@@ -31,6 +31,7 @@ const ShopNavbar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const { confirm, modalProps: loginModalProps } = useConfirmModal();
+  const { confirm: confirmLogout, modalProps: logoutModalProps } = useConfirmModal();
 
   useEffect(() => {
     const fetchCartCount = () => {
@@ -149,9 +150,16 @@ const ShopNavbar = () => {
                     </span>
                   </div>
                   <button
-                    onClick={async () => {
-                      await authClient.signOut();
-                      router.push("/");
+                    onClick={() => {
+                      confirmLogout({
+                        title: "Déconnexion",
+                        message: "Êtes-vous sûr de vouloir vous déconnecter ?",
+                        type: "warning",
+                        onConfirm: async () => {
+                          await authClient.signOut();
+                          router.push("/");
+                        }
+                      });
                     }}
                     className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                     title="Déconnexion"
@@ -210,9 +218,16 @@ const ShopNavbar = () => {
                 </>
               ) : (
                 <button
-                  onClick={async () => {
-                    await authClient.signOut();
-                    router.push("/");
+                  onClick={() => {
+                    confirmLogout({
+                      title: "Déconnexion",
+                      message: "Êtes-vous sûr de vouloir vous déconnecter ?",
+                      type: "warning",
+                      onConfirm: async () => {
+                        await authClient.signOut();
+                        router.push("/");
+                      }
+                    });
                   }}
                   className="flex items-center space-x-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-xl"
                 >
@@ -229,6 +244,11 @@ const ShopNavbar = () => {
         {...loginModalProps}
         confirmText="Se connecter"
         cancelText="Plus tard"
+      />
+      <ConfirmModal
+        {...logoutModalProps}
+        confirmText="Se déconnecter"
+        cancelText="Annuler"
       />
     </>
   );

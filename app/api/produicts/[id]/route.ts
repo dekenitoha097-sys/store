@@ -1,6 +1,28 @@
 import { NextResponse, NextRequest } from "next/server";
 import { connexion } from "@/lib/db";
 
+export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await context.params;
+
+    const [rows]: any = await connexion.execute(
+      "SELECT * FROM products WHERE id = ?",
+      [id]
+    );
+
+    if (Array.isArray(rows) && rows.length > 0) {
+      return NextResponse.json({ data: rows[0] }, { status: 200 });
+    } else {
+      return NextResponse.json({ message: "Produit non trouvé" }, { status: 404 });
+    }
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Erreur lors de la récupération", error: String(error) },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await context.params;

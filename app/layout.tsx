@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ShopNavbar from "@/components/shop_navbar";
 import { ToastProvider } from "@/components/ui/toast";
+import CookieConsent from "@/components/cookie-consent";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <ToastProvider>
           <ShopNavbar />
           <main className="min-h-screen">{children}</main>
+          <CookieConsent />
         </ToastProvider>
       </body>
     </html>

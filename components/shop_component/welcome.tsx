@@ -1,7 +1,7 @@
 'use client';
 
 import { authClient } from "@/lib/auth-client";
-import { Sparkles, ShoppingBag, Heart } from "lucide-react";
+import { Sparkles, ShoppingBag, Heart, Hand } from "lucide-react";
 import Link from "next/link";
 
 const Welcomme = () => {
@@ -26,7 +26,7 @@ const Welcomme = () => {
           </h1>
           
           <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-10">
-            Votre destination购物 de confiance pour des produits de qualité. 
+            Votre destination de confiance pour des produits de qualité. 
             Connectez-vous pour découvrir notre collection exclusive.
           </p>
 
@@ -83,8 +83,9 @@ const Welcomme = () => {
 
           <div className="inline-flex items-center space-x-2 px-6 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-md mb-6">
             <Sparkles className="h-5 w-5 text-amber-500" />
+            <Hand className="h-5 w-5 text-amber-500" />
             <span className="text-gray-600 font-medium">
-              Heureux de vous revoir 👋
+              Heureux de vous revoir
             </span>
           </div>
 

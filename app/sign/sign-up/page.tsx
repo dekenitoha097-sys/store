@@ -19,9 +19,17 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsloading] = useState(false);
+  const [nameError, setNameError] = useState("");
   const { showToast } = useToast();
 
   const handleSignUp = async () => {
+    // Validation du champ nom
+    if (!name.trim()) {
+      setNameError("Le nom est obligatoire");
+      return;
+    }
+    setNameError("");
+    
     console.log("ca marche");
     const { data, error } = await authClient.signUp.email(
       {
@@ -55,12 +63,25 @@ const SignUpPage = () => {
         </CardHeader>
 
         <CardContent className="space-y-4">
-          <Input
-            placeholder="Votre nom complet"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <div className="space-y-2">
+            <Label htmlFor="name" className="text-sm font-medium">
+              Nom complet <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="name"
+              placeholder="Votre nom complet"
+              type="text"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                if (nameError) setNameError("");
+              }}
+              className={nameError ? "border-red-500" : ""}
+            />
+            {nameError && (
+              <p className="text-sm text-red-500">{nameError}</p>
+            )}
+          </div>
           <Input
             placeholder="Adresse e-mail"
             type="email"
