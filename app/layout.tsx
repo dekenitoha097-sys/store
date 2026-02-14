@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import ShopNavbar from "@/components/shop_navbar";
+import { ToastProvider } from "@/components/ui/toast";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "F&A Boutique – Mode tendance",
-  description: "Achetez les meilleurs vêtements chez F&A Boutique.",
+  title: "F&A Boutique – Votre Destination Mode",
+  description: "Découvrez notre collection exclusive de produits de qualité. Achetez en ligne en toute simplicité.",
+  keywords: ["boutique", "mode", "vêtements", "shopping", "produits", "F&A"],
+  authors: [{ name: "F&A Boutique" }],
+  openGraph: {
+    title: "F&A Boutique – Votre Destination Mode",
+    description: "Découvrez notre collection exclusive de produits de qualité.",
+    type: "website",
+  },
   icons: {
     icon: "/favicon.ico",
   },
@@ -23,16 +26,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="fr">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ShopNavbar/>
-        {children}
+      <body className={`${inter.variable} antialiased`}>
+        <ToastProvider>
+          <ShopNavbar />
+          <main className="min-h-screen">{children}</main>
+        </ToastProvider>
       </body>
     </html>
   );

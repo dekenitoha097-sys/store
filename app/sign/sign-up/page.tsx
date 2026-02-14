@@ -11,12 +11,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useToast } from "@/components/ui/toast";
+import { Loader2 } from "lucide-react";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsloading] = useState(false);
+  const { showToast } = useToast();
 
   const handleSignUp = async () => {
     console.log("ca marche");
@@ -32,11 +35,11 @@ const SignUpPage = () => {
           setIsloading(true);
         },
         onSuccess: (ctx) => {
-          alert("Inscription reuissi");
+          showToast("Inscription réussie !", "success");
           setIsloading(false);
         },
         onError: (ctx) => {
-          alert("echouer" + ctx.error.message);
+          showToast("Échec de l'inscription : " + ctx.error.message, "error");
           setIsloading(false);
         },
       }
@@ -75,7 +78,14 @@ const SignUpPage = () => {
             className="w-full cursor-pointer text-white"
             disabled={isLoading}
           >
-            {isLoading ? "Chargement..." : "Créer un compte"}
+            {isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Création en cours...
+              </>
+            ) : (
+              "Créer un compte"
+            )}
           </Button>
         </CardContent>
 

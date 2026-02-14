@@ -12,11 +12,14 @@ import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import Image from "next/image";
+import { useToast } from "@/components/ui/toast";
+import { Loader2 } from "lucide-react";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsloading] = useState(false);
+  const { showToast } = useToast();
 
   const handleSignIn = async () => {
     try {
@@ -29,13 +32,12 @@ const SignInPage = () => {
       });
 
       if (error) {
-        alert("Échec de la connexion : " + error.message);
+        showToast("Échec de la connexion : " + error.message, "error");
       } else {
-        alert("Connexion réussie");
-        // Ici tu peux rediriger si besoin, ex: router.push("/")
+        showToast("Connexion réussie !", "success");
       }
     } catch (err) {
-      alert("Erreur inattendue : ");
+      showToast("Erreur inattendue", "error");
     } finally {
       setIsloading(false);
     }
@@ -67,7 +69,14 @@ const SignInPage = () => {
             className="w-full cursor-pointer text-white"
             disabled={isLoading}
           >
-            {isLoading ? "Chargement..." : "Se connecter"}
+            {isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Connexion en cours...
+              </>
+            ) : (
+              "Se connecter"
+            )}
           </Button>
         </CardContent>
 

@@ -1,10 +1,11 @@
 'use client';
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Loader2 } from "lucide-react";
 import { useRef, useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "../ui/button";
+import { useToast } from "@/components/ui/toast";
 
 type Produit = {
   id: number;
@@ -26,6 +27,7 @@ type Props = {
 const Command = ({ produit, prix }: Props) => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const { showToast } = useToast();
 
   const openModal = () => {
     modalRef.current?.showModal();
@@ -50,7 +52,7 @@ const Command = ({ produit, prix }: Props) => {
     e.preventDefault();
 
     if (!session.data) {
-      alert("Vous devez être connecté pour passer une commande.");
+      showToast("Vous devez être connecté pour passer une commande.", "error");
       return;
     }
 
@@ -74,7 +76,7 @@ const Command = ({ produit, prix }: Props) => {
       const data = await response.json();
 
       if (response.ok) {
-        alert(data.message || "Commande enregistrée avec succès !");
+        showToast(data.message || "Commande enregistrée avec succès !", "success");
         // Après succès de fetch, on soumet vraiment le formulaire à formsubmit.co
         formRef.current?.submit();
 
@@ -83,10 +85,10 @@ const Command = ({ produit, prix }: Props) => {
         setLocalisation("");
         setTelephone("");
       } else {
-        alert(data.erreur || "Erreur lors de la commande.");
+        showToast(data.erreur || "Erreur lors de la commande.", "error");
       }
     } catch (error) {
-      alert("Erreur réseau, veuillez réessayer.");
+      showToast("Erreur réseau, veuillez réessayer.", "error");
     } finally {
       setLoading(false);
     }
@@ -158,7 +160,14 @@ const Command = ({ produit, prix }: Props) => {
               type="submit"
               disabled={loading}
             >
-              {loading ? "Envoi..." : "Commander"}
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Envoi en cours...
+                </>
+              ) : (
+                "Commander"
+              )}
             </Button>
           </form>
 
